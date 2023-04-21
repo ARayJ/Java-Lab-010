@@ -1,11 +1,13 @@
-public class ForecastDisplay extends WeatherStation{
+public class ForecastDisplay implements Display{
     public float currentPressure;
     public float lastPressure;
 WeatherStation ws = new WeatherStation();
+    @Override
     public void update(){
-        currentPressure = ws.getPressure();
         lastPressure = currentPressure;
+        currentPressure = ws.getPressure();
     }
+    @Override
     public void display(){
         System.out.print("Forecast: ");
         if (currentPressure > lastPressure) {
