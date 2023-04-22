@@ -1,11 +1,19 @@
 public class ForecastDisplay implements Display{
-    public float currentPressure;
-    public float lastPressure;
-WeatherStation ws = new WeatherStation();
+    private WeatherStation ws;
+    private float currentPressure;
+    private float lastPressure;
+    public ForecastDisplay(WeatherStation ws){
+        this.ws=ws;
+        this.lastPressure = Float.MIN_VALUE;
+    }
     @Override
     public void update(){
-        lastPressure = currentPressure;
-        currentPressure = ws.getPressure();
+        float cp = this.ws.getPressure();
+        this.currentPressure = cp;
+        if (this.currentPressure == Float.MIN_VALUE){
+        this.lastPressure = cp;
+        }
+        display();
     }
     @Override
     public void display(){

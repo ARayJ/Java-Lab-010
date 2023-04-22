@@ -1,23 +1,28 @@
 public class StatisticsDisplay implements Display {
+    private WeatherStation ws;
     private float temperatureMin;
     private float temperatureMax;
     private float tempRunningTotal;
     private int numReadings;
-    WeatherStation ws = new WeatherStation();
+    public StatisticsDisplay(WeatherStation ws){
+        this.temperatureMin = Float.MAX_VALUE;
+        this.temperatureMin = Float.MIN_VALUE;
+        this.tempRunningTotal = 0;
+        this.ws = ws;
+
+    }
     @Override
     public void update() {
-        numReadings = 1;
-        float[] arr = new float[numReadings];
-        int i;
-        for (i = 0; i < arr.length; i++) {
-            arr[i] = ws.getTemperature();
-            tempRunningTotal += arr[i];
-            numReadings++;
-            if (arr[i] >= temperatureMax)
-                temperatureMax = arr[i];}
-                if (arr[i] <= temperatureMin) {
-                    temperatureMin = arr[i];
-            }
+        float ttemp = this.ws.getTemperature();
+        if(this.temperatureMax < ttemp){
+            this.temperatureMax = ttemp;
+        }
+        if(this.temperatureMin > ttemp) {
+            this.temperatureMin = ttemp;
+        }
+        this.tempRunningTotal += ttemp;
+        this.numReadings++;
+        display();
 
         }
         @Override
